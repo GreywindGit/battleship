@@ -15,8 +15,9 @@ def init_board():
         board.append(["~"]*10)
     return board
 
+
 def single_ship_position(player_board, length):
-    ship_position = [0,0]
+    ship_position = [0, 0]
     ship_direction = ""
     ending_x = 0
     ending_y = 0
@@ -27,17 +28,17 @@ def single_ship_position(player_board, length):
     position_valid = False
     no_ship_overlap = True
 
-    #validating section - parse, position, overlap
+    # validating section - parse, position, overlap
     while not (input_valid and position_valid and no_ship_overlap):
         ship_position = input("Ship's starting position (row,col)? ").split(',')
-        #checking whether input is an integer and set ship starting coords
+        # checking whether input is an integer and set ship starting coords
         input_valid = validate_input(ship_position)
         if not input_valid:
             print("Invalid input")
             continue
         init_y = int(ship_position[0])
         init_x = int(ship_position[1])
-        #checking whether starting coords are inside board
+        # checking whether starting coords are inside board
         position_valid = validate_position(init_y, init_x)
         if not position_valid:
             print("Position is not on the board")
@@ -51,20 +52,20 @@ def single_ship_position(player_board, length):
             elif ship_direction in ["v", "V"]:
                 ending_y = init_y + length - 1
                 ending_x = init_x
-            #checking whether whole ship is inside board
+            # checking whether whole ship is inside board
             position_valid = validate_position(ending_y, ending_x)
             if not position_valid:
                 print("Ship is out of board")
                 ship_direction = ""
                 continue
-            #checking whether new ship overlaps existing one(s)
+            # checking whether new ship overlaps existing one(s)
             no_ship_overlap = check_overlap(player_board, init_y, init_x, ending_y, ending_x)
-            if no_ship_overlap == False:
+            if no_ship_overlap is False:
                 print("Oops, there is another ship")
                 ship_direction = ""
                 continue
 
-    #if everything is fine, writing hashmarks to player_board's relating position(s)
+    # if everything is fine, writing hashmarks to player_board's relating position(s)
     for i in range(length):
         if ship_direction in ["h", "H"]:
             player_board[init_y-1][init_x-1+i] = "#"
@@ -77,17 +78,18 @@ def validate_input(position_to_check):
     try:
         pos_y = int(position_to_check[0])
         pos_x = int(position_to_check[1])
-    except(ValueError,IndexError):
+    except(ValueError, IndexError):
         return False
     else:
         return True
+
 
 def validate_position(pos_y, pos_x):
     if pos_y <= 0 or pos_x <= 0 or pos_y > 10 or pos_x > 10:
         return False
     else:
         return True
-    
+
 
 def check_overlap(board_to_check, start_y, start_x, end_y, end_x):
     for i in range(start_y-1, end_y):
@@ -96,23 +98,26 @@ def check_overlap(board_to_check, start_y, start_x, end_y, end_x):
                 return False
     return True
 
+
 def draw_board(player_board, hide):
     header = "1 2 3 4 5 6 7 8 9 10"
     print(header.rjust(2))
     for i in range(10):
         for j in range(10):
             if player_board[i][j] == '#' and hide:
-                print('~', end = " ")
+                print('~', end=" ")
             else:
-                print(player_board[i][j], end = " ")
-        print(str(i+1).rjust(2), end = " ")
+                print(player_board[i][j], end=" ")
+        print(str(i+1).rjust(2), end=" ")
         print()
+
 
 def info_board():
     os.system('clear')
     draw_board(init_board(), False)
 
-#Shooting mechanism:
+
+# Shooting mechanism:
 def shot(player):
     if player == 1:
         os.system('clear')
@@ -169,7 +174,8 @@ def shot(player):
                     time.sleep(3)
                     break
 
-#game_mechanism: if a shot killed the last ship part, shooting player wins
+
+# game_mechanism: if a shot killed the last ship part, shooting player wins
 def game_mech():
     game_finish = True
     while game_finish:
@@ -184,24 +190,24 @@ def game_mech():
             print("Player 2 won!")
             break
 
-#player 1 positions ships
+# player 1 positions ships
 game_info()
 info_board()
 player_one_board = init_board()
-for ship_number in range(1,4):
+for ship_number in range(1, 4):
     print("\nPlayer 1: Place your %s ship" % position_names[ship_number])
-    player_one_board = single_ship_position(player_one_board,ship_number)
+    player_one_board = single_ship_position(player_one_board, ship_number)
     time.sleep(1)
     os.system('clear')
     draw_board(player_one_board, False)
 time.sleep(5)
 
-#player 2 positions ships
+# player 2 positions ships
 info_board()
 player_two_board = init_board()
-for ship_number in range(1,4):
+for ship_number in range(1, 4):
     print("\nPlayer 2: Place your %s ship" % position_names[ship_number])
-    player_two_board = single_ship_position(player_two_board,ship_number)
+    player_two_board = single_ship_position(player_two_board, ship_number)
     time.sleep(1)
     os.system('clear')
     draw_board(player_two_board, False)
