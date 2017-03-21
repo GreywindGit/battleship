@@ -1,7 +1,7 @@
 import os
 import time
 position_names = {1: 'first', 2: 'second', 3: 'third'}
-
+#asdasdas
 
 def game_info():
     os.system("clear")
