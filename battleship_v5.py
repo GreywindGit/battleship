@@ -1,12 +1,14 @@
 import os
 import time
-position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
 
 
 class textformats:
     DEFAULT = '\033[0m'
     UNDER = '\033[4m'
     BOLD = '\033[1m'
+    CYAN = '\033[0;36m'
+    GREEN = '\033[0;32m'
+    RED = '\033[0;31m'
 
 
 def game_info():
@@ -118,15 +120,18 @@ def check_overlap(board_to_check, start_y, start_x, end_y, end_x):
 
 
 def draw_board(player_board, hide):
-    header = "1 2 3 4 5 6 7 8 9 10"
+    header = textformats.BOLD + "1 2 3 4 5 6 7 8 9 10" + textformats.DEFAULT
+    symbol_colours = {'~': textformats.CYAN, '#': textformats.BOLD, 'o': textformats.GREEN, 'X': textformats.RED}
+
     print(header.rjust(2))
     for i in range(10):
         for j in range(10):
             if player_board[i][j] == '#' and hide:
-                print('~', end=" ")
+                print(textformats.CYAN + '~' + textformats.DEFAULT, end=" ")
             else:
-                print(player_board[i][j], end=" ")
-        print(str(i+1).rjust(2), end=" ")
+                colour = symbol_colours[player_board[i][j]]
+                print(colour + player_board[i][j] + textformats.DEFAULT, end=" ")
+        print(textformats.BOLD + str(i+1).rjust(2) + textformats.DEFAULT, end=" ")
         print()
 
 
@@ -216,6 +221,7 @@ def game_mech():
 
 # Ship placing procedure
 def place_ships(player):
+    position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
     player_board = init_board()
     for ship_number in range(1, 6):
         print("\nPlayer {}: Place your {} ship".format(player, position_names[ship_number]))
