@@ -2,10 +2,18 @@ import os
 import time
 position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
 
+
 def game_info():
     os.system("clear")
     print("Battleship: Multiplayer Torpedo Game\nBoth players have three ships: a 1, a 2 and a 3 coordinate long\nYour ship's position = #\nHit = X\nMiss = o")
     time.sleep(10)
+
+
+def game_menu():
+    os.system('clear')
+    print("Battleship menu\n")
+    print("[P]lay game")
+    print("[E]xit")
 
 
 def init_board():
@@ -209,18 +217,27 @@ def place_ships(player):
 
 def main():
     game_info()
-    # Player one positions ships
-    info_board()
-    player_one_board = place_ships(1)
-    global player_one_board
-    time.sleep(5)
+    game_menu()
+    menu_choice = ''
+    while menu_choice != 'e':
+        while menu_choice not in ('e', 'p'):
+            menu_choice = input('')
+        if menu_choice == 'e':
+            break
+        elif menu_choice == 'p':
+            # Player one positions ships
+            info_board()
+            global player_one_board
+            player_one_board = place_ships(1)
+            time.sleep(5)
 
-    # Player 2 positions ships
-    info_board()
-    player_two_board = place_ships(2)
-    global player_two_board
-    time.sleep(5)
+            # Player 2 positions ships
+            info_board()
+            global player_two_board
+            player_two_board = place_ships(2)
+            time.sleep(5)
 
-    game_mech()
+            # Shooting phase until someone wins
+            game_mech()
 
 main()
