@@ -70,7 +70,7 @@ def single_ship_position(player_board, length):
             player_board[init_y-1][init_x-1+i] = "#"
         else:
             player_board[init_y-1+i][init_x-1] = "#"
-    return player_board               
+    return player_board
 
 
 def validate_input(position_to_check):
@@ -120,20 +120,23 @@ def info_board():
 def shot(player):
     if player == 1:
         os.system('clear')
-        draw_board(player_two_board, True)
+        draw_board(player_two_board, True)#.join(draw_board(player_one_board, False)
     elif player == 2:
         os.system('clear')
-        draw_board(player_one_board, True)
-    invalid_shot = True
-    while invalid_shot:
+        draw_board(player_one_board, True)#.join(draw_board(player_two_board, False)
+    input_valid = False
+    position_valid = False
+    while not (input_valid and position_valid):
         shot_position = input("\nPlayer {}: Where to shoot(row,col)? ".format(player)).split(',')
-        try:
-            shot_y = int(shot_position[0])
-            shot_x = int(shot_position[1])
-            if shot_y <= 0 or pos_x <= 0 or pos_y > 10 or pos_x > 10:
-                raise IndexError
-        except (ValueError, IndexError):
-            print("Invalid position")
+        input_valid = validate_input(shot_position)
+        if not input_valid:
+            print("Invalid input")
+            continue
+        shot_y = int(shot_position[0])
+        shot_x = int(shot_position[1])
+        position_valid = validate_position(shot_y, shot_x)
+        if not position_valid:
+            print("Target is out of range")
             continue
         else:
             if player == 1:
