@@ -2,6 +2,7 @@ import os
 import time
 position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
 
+
 def game_info():
     os.system("clear")
     print("Battleship: Multiplayer Torpedo Game\nBoth players have three ships: a 1, a 2 and a 3 coordinate long\nYour ship's position = #\nHit = X\nMiss = o")
@@ -121,11 +122,11 @@ def shot(player):
     if player == 1:
         os.system('clear')
         draw_board(player_two_board, True)
-        #draw_board(player_one_board, False)
+        draw_board(player_one_board, False)
     elif player == 2:
         os.system('clear')
         draw_board(player_one_board, True)
-        #draw_board(player_two_board, False)
+        draw_board(player_two_board, False)
     input_valid = False
     position_valid = False
     while not (input_valid and position_valid):
@@ -180,20 +181,43 @@ def shot(player):
 
 
 # game_mechanism: if a shot killed the last ship part, shooting player wins
-def game_mech():
+def game_win_mech():
+    player1_points = 4
+    player2_points = 4
     game_finish = True
     while game_finish:
-        shot(1)
-        if not any("#" in a for a in player_two_board):
-            game_finish = False
-            print("Player 1 won!")
-            break
-        shot(2)
-        if not any("#" in b for b in player_one_board):
-            game_finish = False
-            print("Player 2 won!")
-            break
-
+        print("Player 1 points: {}".format(player1_points))
+        print("Player 2 points: {}".format(player2_points))
+        time.sleep(3)
+        info_board()
+        player_one_board = place_ships(1)
+        global player_one_board
+        time.sleep(1)
+        info_board()
+        player_two_board = place_ships(2)
+        global player_two_board
+        time.sleep(1)
+        round_finish = True
+        while round_finish:
+            shot(1)
+            if not any("#" in a for a in player_two_board):
+                print("Player 1 won!")
+                player1_points += 1
+                round_finish = False
+                if player1_points == 5:
+                    print("Player 1 won the game")
+                    game_finish = False
+                    break
+            shot(2)
+            if not any("#" in b for b in player_one_board):
+                print("Player 2 won!")
+                player2_points += 1
+                round_finish = False
+                if player2_points == 5:
+                    print("Player 2 won the game")
+                    game_finish = False
+                    break
+        
 
 # Ship placing procedure
 def place_ships(player):
@@ -209,18 +233,6 @@ def place_ships(player):
 
 def main():
     game_info()
-    # Player one positions ships
-    info_board()
-    player_one_board = place_ships(1)
-    global player_one_board
-    time.sleep(5)
-
-    # Player 2 positions ships
-    info_board()
-    player_two_board = place_ships(2)
-    global player_two_board
-    time.sleep(5)
-
-    game_mech()
+    game_win_mech()
 
 main()
