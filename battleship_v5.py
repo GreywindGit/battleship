@@ -236,13 +236,14 @@ def main():
     menu_choice = ''
 
     game_info()
-    game_menu()
     while menu_choice != 'e':
         while menu_choice not in ('e', 'p'):
+            game_menu()
             menu_choice = input('')
         if menu_choice == 'e':
             break
         elif menu_choice == 'p':
+            menu_choice = ''
             # Player one positions ships
             info_board()
             global player_one_board
