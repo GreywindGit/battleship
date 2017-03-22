@@ -120,10 +120,12 @@ def info_board():
 def shot(player):
     if player == 1:
         os.system('clear')
-        draw_board(player_two_board, True)#.join(draw_board(player_one_board, False)
+        draw_board(player_two_board, True)
+        #draw_board(player_one_board, False)
     elif player == 2:
         os.system('clear')
-        draw_board(player_one_board, True)#.join(draw_board(player_two_board, False)
+        draw_board(player_one_board, True)
+        #draw_board(player_two_board, False)
     input_valid = False
     position_valid = False
     while not (input_valid and position_valid):
@@ -210,11 +212,13 @@ def main():
     # Player one positions ships
     info_board()
     player_one_board = place_ships(1)
+    global player_one_board
     time.sleep(5)
 
     # Player 2 positions ships
     info_board()
     player_two_board = place_ships(2)
+    global player_two_board
     time.sleep(5)
 
     game_mech()
