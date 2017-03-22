@@ -3,6 +3,12 @@ import time
 position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
 
 
+class textformats:
+    DEFAULT = '\033[0m'
+    UNDER = '\033[4m'
+    BOLD = '\033[1m'
+
+
 def game_info():
     os.system("clear")
     print("This is a hot-seat multiplayer Battleship game. Each player has five ships,")
@@ -10,15 +16,15 @@ def game_info():
     print("begins. If someone loses all their ships, the game ends.\n")
     print("Board symbols: ")
     print("'~' : the vast ocean\n'#' : ship\n'o' : shot that didn't hit anything\n'x' : shot that hit a ship")
-    print("Have fun!")
+    print("\nHave fun!")
     time.sleep(10)
 
 
 def game_menu():
     os.system('clear')
-    print("Battleship menu\n")
-    print("[P]lay game")
-    print("[E]xit")
+    print(textformats.UNDER + "Game menu\n" + textformats.DEFAULT)
+    print(textformats.BOLD + "[P]" + textformats.DEFAULT + "lay game")
+    print(textformats.BOLD + "[E]" + textformats.DEFAULT + "xit")
 
 
 def init_board():
