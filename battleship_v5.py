@@ -5,7 +5,12 @@ position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
 
 def game_info():
     os.system("clear")
-    print("Battleship: Multiplayer Torpedo Game\nBoth players have three ships: a 1, a 2 and a 3 coordinate long\nYour ship's position = #\nHit = X\nMiss = o")
+    print("This is a hot-seat multiplayer Battleship game. Each player has five ships,")
+    print("which they position in ascending order. After placing the ships the battle ")
+    print("begins. If someone loses all their ships, the game ends.\n")
+    print("Board symbols: ")
+    print("'~' : the vast ocean\n'#' : ship\n'o' : shot that didn't hit anything\n'x' : shot that hit a ship")
+    print("Have fun!")
     time.sleep(10)
 
 
@@ -129,11 +134,11 @@ def shot(player):
     if player == 1:
         os.system('clear')
         draw_board(player_two_board, True)
-        #draw_board(player_one_board, False)
+        # draw_board(player_one_board, False)
     elif player == 2:
         os.system('clear')
         draw_board(player_one_board, True)
-        #draw_board(player_two_board, False)
+        # draw_board(player_two_board, False)
     input_valid = False
     position_valid = False
     while not (input_valid and position_valid):
