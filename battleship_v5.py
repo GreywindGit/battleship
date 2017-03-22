@@ -1,6 +1,6 @@
 import os
 import time
-position_names = {1: 'first', 2: 'second', 3: 'third'}
+position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
 
 
 def game_info():
@@ -71,7 +71,7 @@ def single_ship_position(player_board, length):
             player_board[init_y-1][init_x-1+i] = "#"
         else:
             player_board[init_y-1+i][init_x-1] = "#"
-    return player_board               
+    return player_board
 
 
 def validate_input(position_to_check):
@@ -190,26 +190,31 @@ def game_mech():
             print("Player 2 won!")
             break
 
-# player 1 positions ships
-game_info()
-info_board()
-player_one_board = init_board()
-for ship_number in range(1, 4):
-    print("\nPlayer 1: Place your %s ship" % position_names[ship_number])
-    player_one_board = single_ship_position(player_one_board, ship_number)
-    time.sleep(1)
-    os.system('clear')
-    draw_board(player_one_board, False)
-time.sleep(5)
 
-# player 2 positions ships
-info_board()
-player_two_board = init_board()
-for ship_number in range(1, 4):
-    print("\nPlayer 2: Place your %s ship" % position_names[ship_number])
-    player_two_board = single_ship_position(player_two_board, ship_number)
-    time.sleep(1)
-    os.system('clear')
-    draw_board(player_two_board, False)
-time.sleep(5)
-game_mech()
+# Ship placing procedure
+def place_ships(player):
+    player_board = init_board()
+    for ship_number in range(1, 6):
+        print("\nPlayer {}: Place your {} ship".format(player, position_names[ship_number]))
+        player_board = single_ship_position(player_board, ship_number)
+        time.sleep(1)
+        os.system('clear')
+        draw_board(player_board, False)
+    return player_board
+
+
+def main():
+    game_info()
+    # Player one positions ships
+    info_board()
+    player_one_board = place_ships(1)
+    time.sleep(5)
+
+    # Player 2 positions ships
+    info_board()
+    player_two_board = place_ships(2)
+    time.sleep(5)
+
+    game_mech()
+
+main()
