@@ -2,7 +2,6 @@ import os
 import time
 position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
 
-
 def game_info():
     os.system("clear")
     print("Battleship: Multiplayer Torpedo Game\nBoth players have three ships: a 1, a 2 and a 3 coordinate long\nYour ship's position = #\nHit = X\nMiss = o")
@@ -131,7 +130,7 @@ def shot(player):
         try:
             shot_y = int(shot_position[0])
             shot_x = int(shot_position[1])
-            if shot_y <= 0 or shot_x <= 0:
+            if shot_y <= 0 or pos_x <= 0 or pos_y > 10 or pos_x > 10:
                 raise IndexError
         except (ValueError, IndexError):
             print("Invalid position")
