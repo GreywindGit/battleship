@@ -1,7 +1,8 @@
 import os
 import time
-player1_points = 0
+player1_points = 4
 player2_points = 0
+
 
 class textformats:
     DEFAULT = '\033[0m'
@@ -28,6 +29,7 @@ def game_menu():
     print(textformats.UNDER + "Game menu\n\n" + textformats.DEFAULT)
     print(textformats.BOLD + "[P]" + textformats.DEFAULT + "lay game\n")
     print(textformats.BOLD + "[E]" + textformats.DEFAULT + "xit\n")
+    print_points(player1_points, player2_points)
 
 
 def init_board():
@@ -220,6 +222,7 @@ def place_ships(player):
 def game_win_mech():
     global player1_points
     global player2_points
+    global menu_choice
     game_finish = True
     round_finish = True
     while round_finish:
@@ -229,12 +232,12 @@ def game_win_mech():
             time.sleep(3)
             player1_points += 1
             round_finish = False
-            continue
             if player1_points == 5:
                 print("Player 1 won the game")
                 time.sleep(3)
                 game_finish = False
                 break
+            continue
 
         shot(2)
         if not any("#" in b for b in player_one_board):
@@ -242,20 +245,19 @@ def game_win_mech():
             time.sleep(3)
             player2_points += 1
             round_finish = False
-            continue
             if player2_points == 5:
                 print("Player 2 won the game")
                 time.sleep(3)
                 game_finish = False
                 break
+            continue
     print_points(player1_points, player2_points)
     menu_choice = 'e'
     return game_finish
 
 
 def print_points(p1_point, p2_point):
-    os.system('clear')
-    print(textformats.UNDER + textformats.BOLD + "Points" + textformats.DEFAULT)
+    print(textformats.UNDER + textformats.BOLD + "Score\n" + textformats.DEFAULT)
     print(textformats.BOLD + "Player 1: {}".format(p1_point) + textformats.DEFAULT)
     print(textformats.BOLD + "Player 2: {}".format(p2_point) + textformats.DEFAULT)
     time.sleep(3)
