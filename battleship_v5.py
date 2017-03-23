@@ -17,7 +17,8 @@ def game_info():
     os.system("clear")
     print("This is a hot-seat multiplayer Battleship game. Each player has five ships,")
     print("which they position in ascending order. After placing the ships the battle ")
-    print("begins. If someone loses all their ships, the game ends.\n")
+    print("begins. If someone loses all their ships, the round ends.\n")
+    print("The game will last until one of the players reach 5 points.\n")
     print("Board symbols: ")
     print("'~' : the vast ocean\n'#' : ship\n'o' : shot that didn't hit anything\n'x' : shot that hit a ship")
     print("\nHave fun!")
@@ -143,16 +144,23 @@ def info_board():
     draw_board(init_board(), False)
 
 
+def shot_display(player):
+    os.system('clear')
+    if player == 1:
+        print("Enemy's board:")
+        draw_board(player_two_board, True)
+        print("\nYour board:")
+        draw_board(player_one_board, False)
+    if player == 2:
+        print("Enemy's board:")
+        draw_board(player_one_board, True)
+        print("\nYour board:")
+        draw_board(player_two_board, False)
+
+
 # Shooting mechanism:
 def shot(player):
-    if player == 1:
-        os.system('clear')
-        draw_board(player_two_board, True)
-        draw_board(player_one_board, False)
-    elif player == 2:
-        os.system('clear')
-        draw_board(player_one_board, True)
-        draw_board(player_two_board, False)
+    shot_display(player)
     input_valid = False
     position_valid = False
     while not (input_valid and position_valid):
@@ -171,36 +179,36 @@ def shot(player):
             if player == 1:
                 if player_two_board[shot_y-1][shot_x-1] == "#":
                     player_two_board[shot_y-1][shot_x-1] = 'X'
-                    draw_board(player_two_board, True)
+                    shot_display(player)
                     print("Hit!")
                     time.sleep(3)
                     break
                 elif player_two_board[shot_y-1][shot_x-1] == "~":
                     player_two_board[shot_y-1][shot_x-1] = 'o'
-                    draw_board(player_two_board, True)
+                    shot_display(player)
                     print("Miss!")
                     time.sleep(3)
                     break
                 elif player_two_board[shot_y-1][shot_x-1] == "X" or player_two_board[shot_y-1][shot_x-1] == "o":
-                    draw_board(player_two_board, True)
+                    shot_display(player)
                     print("You've already taken a shot there!")
                     time.sleep(3)
                     break
             if player == 2:
                 if player_one_board[shot_y-1][shot_x-1] == "#":
                     player_one_board[shot_y-1][shot_x-1] = 'X'
-                    draw_board(player_one_board, True)
+                    shot_display(player)
                     print("Hit!")
                     time.sleep(3)
                     break
                 elif player_one_board[shot_y-1][shot_x-1] == "~":
                     player_one_board[shot_y-1][shot_x-1] = 'o'
-                    draw_board(player_one_board, True)
+                    shot_display(player)
                     print("Miss!")
                     time.sleep(3)
                     break
                 elif player_one_board[shot_y-1][shot_x-1] == "X" or player_one_board[shot_y-1][shot_x-1] == "o":
-                    draw_board(player_one_board, True)
+                    shot_display(player)
                     print("You've already taken a shot there!")
                     time.sleep(3)
                     break
@@ -223,7 +231,6 @@ def game_win_mech():
     global player1_points
     global player2_points
     global menu_choice
-    game_finish = True
     round_finish = True
     while round_finish:
         shot(1)
@@ -233,9 +240,10 @@ def game_win_mech():
             player1_points += 1
             round_finish = False
             if player1_points == 5:
-                print("Player 1 won the game")
+                os.system('clear')
+                print("Player 1 won the game!")
                 time.sleep(3)
-                game_finish = False
+                menu_choice = 'e'
                 break
             continue
 
@@ -246,14 +254,13 @@ def game_win_mech():
             player2_points += 1
             round_finish = False
             if player2_points == 5:
-                print("Player 2 won the game")
+                os.system('clear')
+                print("Player 2 won the game!")
                 time.sleep(3)
-                game_finish = False
+                menu_choice = 'e'
                 break
             continue
-    print_points(player1_points, player2_points)
-    menu_choice = 'e'
-    return game_finish
+    return
 
 
 def print_points(p1_point, p2_point):
@@ -291,8 +298,6 @@ def main():
 
             # Shooting phase until someone wins
             game_win_mech()
-    os.system('clear')
-    print("Have a nice day :)")
 
 
 main()
