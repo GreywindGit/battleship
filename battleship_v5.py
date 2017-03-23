@@ -1,6 +1,6 @@
 import os
 import time
-player1_points = 4
+player1_points = 0
 player2_points = 0
 
 
@@ -218,7 +218,7 @@ def shot(player):
 def place_ships(player):
     position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
     player_board = init_board()
-    for ship_number in range(1, 2):
+    for ship_number in range(1, 6):
         print("\nPlayer {}: Place your {} ship".format(player, position_names[ship_number]))
         player_board = single_ship_position(player_board, ship_number)
         time.sleep(1)
@@ -264,9 +264,13 @@ def game_win_mech():
 
 
 def print_points(p1_point, p2_point):
+    if p1_point > p2_point:
+        p1_point = textformats.GREEN + str(p1_point)
+    elif p1_point < p2_point:
+        p2_point = textformats.GREEN + str(p2_point)
     print(textformats.UNDER + textformats.BOLD + "Score\n" + textformats.DEFAULT)
-    print(textformats.BOLD + "Player 1: {}".format(p1_point) + textformats.DEFAULT)
-    print(textformats.BOLD + "Player 2: {}".format(p2_point) + textformats.DEFAULT)
+    print("Player 1: {}".format(p1_point) + textformats.DEFAULT)
+    print("Player 2: {}".format(p2_point) + textformats.DEFAULT)
     time.sleep(3)
 
 
