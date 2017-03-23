@@ -278,9 +278,13 @@ def game_win_mech():
 
 
 def print_points(p1_point, p2_point):
+    if p1_point > p2_point:
+        p1_point = textformats.GREEN + str(p1_point)
+    elif p1_point < p2_point:
+        p2_point = textformats.GREEN + str(p2_point)
     print(textformats.UNDER + textformats.BOLD + "Score\n" + textformats.DEFAULT)
-    print(textformats.BOLD + "Player 1: {}".format(p1_point) + textformats.DEFAULT)
-    print(textformats.BOLD + "Player 2: {}".format(p2_point) + textformats.DEFAULT)
+    print("Player 1: {}".format(p1_point) + textformats.DEFAULT)
+    print("Player 2: {}".format(p2_point) + textformats.DEFAULT)
     time.sleep(3)
 
 
