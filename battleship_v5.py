@@ -221,9 +221,6 @@ def game_win_mech():
     global player1_points
     global player2_points
     game_finish = True
-    print("Player 1 points: {}".format(player1_points))
-    print("Player 2 points: {}".format(player2_points))
-    time.sleep(3)
     round_finish = True
     while round_finish:
         shot(1)
@@ -251,8 +248,18 @@ def game_win_mech():
                 time.sleep(3)
                 game_finish = False
                 break
+    print_points(player1_points, player2_points)
     menu_choice = 'e'
     return game_finish
+
+
+def print_points(p1_point, p2_point):
+    os.system('clear')
+    print(textformats.UNDER + textformats.BOLD + "Points" + textformats.DEFAULT)
+    print(textformats.BOLD + "Player 1: {}".format(p1_point) + textformats.DEFAULT)
+    print(textformats.BOLD + "Player 2: {}".format(p2_point) + textformats.DEFAULT)
+    time.sleep(3)
+
 
 def main():
     global menu_choice
