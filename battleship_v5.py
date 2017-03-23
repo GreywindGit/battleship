@@ -1,6 +1,6 @@
 import os
 import time
-player1_points = 4
+player1_points = 0
 player2_points = 0
 
 
@@ -15,7 +15,14 @@ class textformats:
 
 def game_info():
     os.system("clear")
-    print("This is a hot-seat multiplayer Battleship game. Each player has five ships,")
+    print("""
+  ____        _   _   _           _     _       
+ | __ )  __ _| |_| |_| | ___  ___| |__ (_)_ __  
+ |  _ \ / _` | __| __| |/ _ \/ __| '_ \| | '_ \ 
+ | |_) | (_| | |_| |_| |  __/\__ \ | | | | |_) |
+ |____/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/ 
+                                         |_|    """)
+    print("\nThis is a hot-seat multiplayer Battleship game. Each player has five ships,")
     print("which they position in ascending order. After placing the ships the battle ")
     print("begins. If someone loses all their ships, the round ends.\n")
     print("The game will last until one of the players reach 5 points.\n")
@@ -27,7 +34,14 @@ def game_info():
 
 def game_menu():
     os.system('clear')
-    print(textformats.UNDER + "Game menu\n\n" + textformats.DEFAULT)
+    print("""
+  ____        _   _   _           _     _       
+ | __ )  __ _| |_| |_| | ___  ___| |__ (_)_ __  
+ |  _ \ / _` | __| __| |/ _ \/ __| '_ \| | '_ \ 
+ | |_) | (_| | |_| |_| |  __/\__ \ | | | | |_) |
+ |____/ \__,_|\__|\__|_|\___||___/_| |_|_| .__/ 
+                                         |_|    """)
+    print("\n" + textformats.UNDER + "Game menu\n\n" + textformats.DEFAULT)
     print(textformats.BOLD + "[P]" + textformats.DEFAULT + "lay game\n")
     print(textformats.BOLD + "[E]" + textformats.DEFAULT + "xit\n")
     print_points(player1_points, player2_points)
@@ -218,7 +232,7 @@ def shot(player):
 def place_ships(player):
     position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
     player_board = init_board()
-    for ship_number in range(1, 2):
+    for ship_number in range(1, 6):
         print("\nPlayer {}: Place your {} ship".format(player, position_names[ship_number]))
         player_board = single_ship_position(player_board, ship_number)
         time.sleep(1)
