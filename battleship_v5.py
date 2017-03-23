@@ -232,7 +232,7 @@ def shot(player):
 def place_ships(player):
     position_names = {1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth'}
     player_board = init_board()
-    for ship_number in range(1, 6):
+    for ship_number in range(1, 2):
         print("\nPlayer {}: Place your {} ship".format(player, position_names[ship_number]))
         player_board = single_ship_position(player_board, ship_number)
         time.sleep(1)
